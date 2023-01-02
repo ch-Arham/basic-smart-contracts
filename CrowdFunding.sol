@@ -76,7 +76,7 @@ contract CrowdFunding {
         requestsCount++;
     }
 
-    function approveRequest(uint _requestId) external campaignEnded {
+    function approveRequest(uint _requestId) external {
         Request storage request = requests[_requestId];
         require(contributors[msg.sender] > 0, "You have not contributed");
         require(!request.approvals[msg.sender], "You have already voted");
