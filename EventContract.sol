@@ -90,7 +90,11 @@ contract EventContract {
         require(block.timestamp > events[_eventId].date, "Event has not started yet, cannot withdraw funds");
         require(msg.sender == events[_eventId].organizer, "Only the organizer can withdraw funds");
         require(totalAmounts[msg.sender] > 0, "No funds to withdraw");
-        events[_eventId].organizer.transfer(totalAmounts[msg.sender]);
+        // events[_eventId].organizer.transfer(totalAmounts[msg.sender]);
+        // totalAmounts[msg.sender] = 0;
+        uint amountToTransfer = totalAmounts[msg.sender];
+        totalAmounts[msg.sender] = 0;
+        payable(msg.sender).transfer(amountToTransfer);
     }
 
     function getEventCount() external view returns (uint) {
